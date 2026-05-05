@@ -48,18 +48,42 @@ public class CalculoController {
 
         try {
             double[] resultado;
+            double[][] A = new double[n][n];
+            double[] b = new double[n];
+
+            for (int i = 0; i < n; i++) {
+
+                if (dto.getVetorB()[i] == null) {
+                    model.addAttribute("erro", "Preencha todos os valores do vetor b.");
+                    model.addAttribute("sistema", dto);
+                    return "index";
+                }
+
+                b[i] = dto.getVetorB()[i];
+
+                for (int j = 0; j < n; j++) {
+
+                    if (dto.getMatrizA()[i][j] == null) {
+                        model.addAttribute("erro", "Preencha toda a matriz A.");
+                        model.addAttribute("sistema", dto);
+                        return "index";
+                    }
+
+                    A[i][j] = dto.getMatrizA()[i][j];
+                }
+            }
 
             switch (dto.getMetodo()) {
                 case "jacobi":
                     resultado = service.resolverJacobi(
-                            dto.getMatrizA(), dto.getVetorB(), n,
+                            A, b, n,
                             dto.getTolerancia(), dto.getMaxIteracoes(), dto
                     );
                     break;
 
                 case "seidel":
                     resultado = service.resolverGaussSeidel(
-                            dto.getMatrizA(), dto.getVetorB(), n,
+                            A, b, n,
                             dto.getTolerancia(), dto.getMaxIteracoes(), dto
                     );
                     break;
@@ -67,7 +91,7 @@ public class CalculoController {
                 case "gauss":
                 default:
                     resultado = service.resolverGauss(
-                            dto.getMatrizA(), dto.getVetorB(), n
+                            A, b, n
                     );
                     dto.setIteracoesRealizadas(1);
                     dto.setConvergiu(true);
@@ -83,7 +107,6 @@ public class CalculoController {
             model.addAttribute("resultado", resultado);
 
         } catch (ArithmeticException e) {
-            // Exceção lançada pelo service
             model.addAttribute("erro", "Erro Matemático: " + e.getMessage());
 
         } catch (Exception e) {

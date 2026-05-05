@@ -3,8 +3,8 @@ package com.mathlab.model;
 public class CalculoModel {
 
     private int tamanho = 3;
-    private double[][] matrizA = new double[10][10];
-    private double[] vetorB = new double[10];
+    private Double[][] matrizA = new Double[10][10];
+    private Double[] vetorB = new Double[10];
     private String metodo = "gauss";
     private double tolerancia = 0.0001;
     private int maxIteracoes = 100;
@@ -17,11 +17,11 @@ public class CalculoModel {
     public int getTamanho() { return tamanho; }
     public void setTamanho(int tamanho) { this.tamanho = tamanho; }
 
-    public double[][] getMatrizA() { return matrizA; }
-    public void setMatrizA(double[][] matrizA) { this.matrizA = matrizA; }
+    public Double[][] getMatrizA() { return matrizA; }
+    public void setMatrizA(Double[][] matrizA) { this.matrizA = matrizA; }
 
-    public double[] getVetorB() { return vetorB; }
-    public void setVetorB(double[] vetorB) { this.vetorB = vetorB; }
+    public Double[] getVetorB() { return vetorB; }
+    public void setVetorB(Double[] vetorB) { this.vetorB = vetorB; }
 
     public String getMetodo() { return metodo; }
     public void setMetodo(String metodo) { this.metodo = metodo; }
